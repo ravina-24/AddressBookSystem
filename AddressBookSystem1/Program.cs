@@ -6,52 +6,50 @@ namespace AddressBookSystem1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome To Address Book System");
+                Console.WriteLine("Welcome to Address Book System");
+                Person person = new Person();
+                AddressBook.AddMember();
 
-            while (true)
-            {
-                Console.WriteLine("\n Enter your choice \n 1 for Adding Contacts \n 2 for viewing Address book" +
-                    " \n 3 for editing the existing contact \n 4 for deleting the contact");
-                Console.WriteLine("................................................");
 
-                int choice = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("................................................");
-
-                switch (choice)
+                while (true)
                 {
-                    case 1:
-                        AddressBook.EnterDetails();
-                        break;
+                    Console.WriteLine("\n Enter your choice \n 1 for Adding Contacts \n 2 for viewing Address book" +
+                        " \n 3 for editing the existing contact \n 4 for deleting the contact ");
+                    Console.WriteLine("................................................");
 
-                    case 2:
-                        AddressBook obj1 = new AddressBook();
-                        obj1.ViewTheDetails();
-                        break;
+                    int choice = int.Parse(Console.ReadLine());
 
-                    case 3:
-                        AddressBook obj2 = new AddressBook();
-                        obj2.EditDeatils();
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            AddressBook.AddMember();
+                            break;
 
+                        case 2:
+                            AddressBook.ViewTheDetails();
+                            break;
 
-                    case 4:
-                        AddressBook obj3 = new AddressBook();
-                        obj3.DeleteName();
-                        break;
+                        case 3:
+                            AddressBook.EditDeatils();
+                            break;
 
-                    default:
-                        Console.WriteLine("Enter valid choice.");
-                        break;
+                        case 4:
+                            AddressBook.DeleteName();
+                            break;
 
+                        default:
+                            Console.WriteLine("Enter valid choice.");
+                            break;
 
+                    }
 
                 }
-
-            }
         }
     }
 }
 
-              
-      
+
+
+
+
+
