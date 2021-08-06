@@ -8,8 +8,6 @@ namespace AddressBookSystem1
     {
 
         public static List<Person> Details = new List<Person>();
-
-
         public static void EnterDetails()
         {
             Console.WriteLine("How many contacts do you want to add?");
