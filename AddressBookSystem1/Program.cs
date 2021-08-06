@@ -44,8 +44,6 @@ namespace AddressBookSystem1
                     case 6:
                         AddressBook.PersonSearch();
                         break;
-
-
                     default:
 
                         Console.WriteLine("Enter valid choice.");
