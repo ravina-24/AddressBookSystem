@@ -4,91 +4,120 @@ using System.Text;
 
 namespace AddressBookSystem1
 {
-    class AddressBook
+    public  class AddressBook
     {
-
+        private static Dictionary<string, List<Person>> addressBook = new Dictionary<string, List<Person>>();
         public static List<Person> Details = new List<Person>();
-        public static void EnterDetails()
+        public static void AddMember()
         {
-            Console.WriteLine("How many contacts do you want to add?");
-            int Count = Convert.ToInt32(Console.ReadLine());
-            while (Count > 0)
+            string addressBookName;
+
+            while (true)
             {
+                Console.WriteLine("Enter The Name of the Address Book");
+                addressBookName = Console.ReadLine();
 
-                Person details = new Person();
 
-                Console.Write("Enter First name : ");
-                details.FirstName = Console.ReadLine();
-
-                Console.Write("Enter Last Name : ");
-                details.LastName = Console.ReadLine();
-
-                Console.Write("Enter Address : ");
-                details.Address = Console.ReadLine();
-
-                Console.Write("Enter City : ");
-                details.City = Console.ReadLine();
-
-                Console.Write("Enter State : ");
-                details.State = Console.ReadLine();
-
-                while (true)
+                if (addressBook.Count > 0)
                 {
-                    Console.Write("Enter Zip Code  : ");
-                    string code = Console.ReadLine();
-
-                    if (code.Length == 6)
+                    if (addressBook.ContainsKey(addressBookName))
                     {
-                        details.ZipCode = code;
-                        break;
+                        Console.WriteLine("This name of address book already exists");
                     }
                     else
                     {
-                        Console.WriteLine("Enter a valid 6 digit Zip Code.");
-                    }
-                }
-
-
-                while (true)
-                {
-                    Console.Write("Enter Your Phone Number: ");
-                    string Phonenumber = Console.ReadLine();
-
-                    if (Phonenumber.Length == 10)
-                    {
-                        details.PhoneNumber = Phonenumber;
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine("Enter a valid 10 digit Phone Number.");
-                    }
                 }
-
-                while (true)
+                else
                 {
-                    Console.Write("Enter Your Email Address: ");
-                    string Email = Console.ReadLine();
-
-                    if (Email.Contains("@"))
-                    {
-                        details.EmailId = Email;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter a valid Email Address.");
-                    }
+                    break;
                 }
 
-                Details.Add(details);
 
-                Console.WriteLine("..................");
-                Count++;
+
+
+
+                Console.WriteLine("How many contacts do you want to add?");
+                int Count = Convert.ToInt32(Console.ReadLine());
+                while (Count > 0)
+                {
+
+                    Person details = new Person();
+
+                    Console.Write("Enter First name : ");
+                    details.FirstName = Console.ReadLine();
+
+                    Console.Write("Enter Last Name : ");
+                    details.LastName = Console.ReadLine();
+
+                    Console.Write("Enter Address : ");
+                    details.Address = Console.ReadLine();
+
+                    Console.Write("Enter City : ");
+                    details.City = Console.ReadLine();
+
+                    Console.Write("Enter State : ");
+                    details.State = Console.ReadLine();
+
+                    while (true)
+                    {
+                        Console.Write("Enter Zip Code  : ");
+                        string code = Console.ReadLine();
+
+                        if (code.Length == 6)
+                        {
+                            details.ZipCode = code;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid 6 digit Zip Code.");
+                        }
+                    }
+
+
+                    while (true)
+                    {
+                        Console.Write("Enter Your Phone Number: ");
+                        string Phonenumber = Console.ReadLine();
+
+                        if (Phonenumber.Length == 10)
+                        {
+                            details.PhoneNumber = Phonenumber;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid 10 digit Phone Number.");
+                        }
+                    }
+
+                    while (true)
+                    {
+                        Console.Write("Enter Your Email Address: ");
+                        string Email = Console.ReadLine();
+
+                        if (Email.Contains("@"))
+                        {
+                            details.EmailId = Email;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid Email Address.");
+                        }
+                    }
+
+                    Details.Add(details);
+
+                    Console.WriteLine("..................");
+                    Count++;
+                }
             }
         }
 
-        public void ViewTheDetails()
+        public static void ViewTheDetails()
         {
             foreach (var item in Details)
             {
@@ -98,7 +127,7 @@ namespace AddressBookSystem1
 
         }
 
-        public void PrintTheDetails(Person item)
+        public static void PrintTheDetails(Person item)
         {
             Console.WriteLine("First Name :   " + item.FirstName);
             Console.WriteLine("Last Name :    " + item.LastName);
@@ -112,7 +141,7 @@ namespace AddressBookSystem1
 
         }
 
-        public void EditDeatils()
+        public static void EditDeatils()
         {
             if (AddressBook.Details.Count > 0)
             {
@@ -223,7 +252,7 @@ namespace AddressBookSystem1
 
         }
 
-        public void DeleteName()
+        public static void DeleteName()
         {
             if (AddressBook.Details.Count > 0)
             {
