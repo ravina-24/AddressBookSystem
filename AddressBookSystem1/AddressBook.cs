@@ -258,8 +258,23 @@ namespace AddressBookSystem1
                 }
             }
         }
+            public static void PersonSearchDisplay(Dictionary<string, List<Person>> cityPersons, Dictionary<string, List<Person>> statePersons, string cityKey, string stateKey)
+            {
+                Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
+                foreach (Person contact in cityPersons[cityKey])
+                {
+                    Console.WriteLine("{0}", contact.FirstName);
+                }
+                Console.WriteLine("--------------------Persons in {0} state", stateKey);
+                foreach (Person contact in statePersons[stateKey])
+                {
+                    Console.WriteLine("{0}", contact.FirstName);
+                }
+            }
+
     }
-}
+ }
+
 
 
 
