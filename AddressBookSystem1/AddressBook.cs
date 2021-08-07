@@ -10,24 +10,7 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-        public void AddAddressBook()
-        {
-            int count = 2;
-            while (count > 0)
-            {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    AddressBookNewNameValidator();
-                }
-                else if (key == 2)
-                {
-                    AddressBookExistingNameValidator();
-                }
-                count--;
-            }
-        }
+      
 
         public static void AddressBookNewNameValidator()
         {
@@ -82,9 +65,11 @@ namespace AddressBookSystem1
                 details.PhoneNumber = Console.ReadLine();
                 Console.WriteLine("Enter your Email ID");
                 details.EmailId = Console.ReadLine();
+                Console.WriteLine("..............................");
 
                 AddressBookDictionary[addressBookName].Add(details);
                 Console.WriteLine("{0}'s contact succesfully added", details.FirstName);
+                Console.WriteLine("............................................");
 
                 personNum--;
             }
@@ -268,7 +253,7 @@ namespace AddressBookSystem1
             PersonSearchDisplay(cityPersons, statePerson, cityKey, stateKey);
         }
         public static void PersonSearchDisplay(Dictionary<string, List<Person>> cityPersons, Dictionary<string, List<Person>> statePersons, string cityKey, string stateKey)
-            {
+        {
                 Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
                 foreach (Person contact in cityPersons[cityKey])
                 {
@@ -288,6 +273,23 @@ namespace AddressBookSystem1
 
 
             Console.WriteLine("Total count of persons in the state {0} is {1}", stateKey, statePersons[stateKey].Count);
+        }
+
+        public static void SortEntriesAlphabetically()
+        {
+            Console.Write("Enter the name of address book you want to sort: ");
+            string addressBookName = Console.ReadLine();
+            Console.WriteLine();
+
+            if (AddressBookDictionary.ContainsKey(addressBookName))
+            {
+                AddressBookDictionary[addressBookName].Sort((x, y) => x.FirstName.CompareTo(y.FirstName));
+                ViewTheDetails();
+            }
+            else
+            {
+                Console.WriteLine("This address book doesn't exists in our record.");
+            }
         }
 
     }
