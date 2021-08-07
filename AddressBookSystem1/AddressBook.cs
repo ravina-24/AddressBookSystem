@@ -10,24 +10,7 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-        public void AddAddressBook()
-        {
-            int count = 2;
-            while (count > 0)
-            {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    AddressBookNewNameValidator();
-                }
-                else if (key == 2)
-                {
-                    AddressBookExistingNameValidator();
-                }
-                count--;
-            }
-        }
+      
 
         public static void AddressBookNewNameValidator()
         {
@@ -290,8 +273,46 @@ namespace AddressBookSystem1
             Console.WriteLine("Total count of persons in the state {0} is {1}", stateKey, statePersons[stateKey].Count);
         }
 
+        public static void SortByCityStateZip()
+        {
+            Console.Write("Enter the name of address book you want to sort: ");
+            string addressBookName = Console.ReadLine();
+            Console.WriteLine("\nNow enter \n1. To sort by cities \n2. To sort by State \n3. To sort by Zip-Code");
+            int choice = int.Parse(Console.ReadLine());
+            Console.WriteLine();
+
+            if (AddressBookDictionary.ContainsKey(addressBookName))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        AddressBookDictionary[addressBookName].Sort((x, y) => x.City.CompareTo(y.City));
+                        break;
+
+                    case 2:
+                        AddressBookDictionary[addressBookName].Sort((x, y) => x.State.CompareTo(y.State));
+                        break;
+
+                    case 3:
+                        AddressBookDictionary[addressBookName].Sort((x, y) => x.ZipCode.CompareTo(y.ZipCode));
+                        break;
+
+                    default:
+                        Console.WriteLine("Please enter valid input.");
+                        break;
+                }
+
+                ViewTheDetails();
+            }
+            else
+            {
+                Console.WriteLine("This address book doesn't exists in our record.");
+            }
+        }
     }
- }
+}
+
+    
 
 
 
