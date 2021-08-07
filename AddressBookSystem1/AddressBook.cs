@@ -291,6 +291,22 @@ namespace AddressBookSystem1
                 Console.WriteLine("This address book doesn't exists in our record.");
             }
         }
+            public static void SortByCityStateZip()
+            {
+            Console.Write("Enter the name of address book you want to sort: ");
+            string addressBookName = Console.ReadLine();
+            Console.WriteLine();
+
+            if (AddressBookDictionary.ContainsKey(addressBookName))
+            {
+                AddressBookDictionary[addressBookName].Sort((x, y) => x.FirstName.CompareTo(y.FirstName));
+                ViewTheDetails();
+            }
+            else
+            {
+                Console.WriteLine("This address book doesn't exists in our record.");
+            }
+        }
 
     }
 }
