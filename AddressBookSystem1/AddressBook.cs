@@ -10,25 +10,6 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-        public void AddAddressBook()
-        {
-            int count = 2;
-            while (count > 0)
-            {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    AddressBookNewNameValidator();
-                }
-                else if (key == 2)
-                {
-                    AddressBookExistingNameValidator();
-                }
-                count--;
-            }
-        }
-
         public static void AddressBookNewNameValidator()
         {
             Console.WriteLine("Enter the new addressbook name\n");
@@ -65,9 +46,18 @@ namespace AddressBookSystem1
             while (personNum > 0)
             {
                 Person details = new Person();
-
+            FirstName:
                 Console.WriteLine("Enter your First name");
-                details.FirstName = Console.ReadLine();
+                string FirstName = Console.ReadLine();
+                if (NameDuplicationCheck(addressBookName, FirstName))
+                {
+                    details.FirstName = FirstName;
+                }
+                else
+                {
+                    Console.WriteLine("The name {0} already  exist in the current address book. please enter a new name", FirstName);
+                    goto FirstName;
+                }
                 Console.WriteLine("Enter your Last name");
                 details.LastName = Console.ReadLine();
                 Console.WriteLine("Enter your address");
@@ -87,6 +77,38 @@ namespace AddressBookSystem1
                 Console.WriteLine("{0}'s contact succesfully added", details.FirstName);
 
                 personNum--;
+            }
+        }
+
+        public static bool NameDuplicationCheck(string addressBookName, string FirstName)
+        {
+            int flag = 0;
+            if (AddressBookDictionary[addressBookName].Count > 0)
+            {
+                foreach (Person contact in AddressBookDictionary[addressBookName])
+                {
+                    if (!(contact.FirstName == FirstName))
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+            if (flag == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -242,38 +264,49 @@ namespace AddressBookSystem1
         }
         public static void PersonSearch()
         {
+            Dictionary<string, List<Person>> cityPersons = new Dictionary<string, List<Person>>();
+            Dictionary<string, List<Person>> statePerson = new Dictionary<string, List<Person>>();
+
             Console.WriteLine("Enter the city that you want to search");
             string cityKey = Console.ReadLine();
+            cityPersons[cityKey] = new List<Person>();
             Console.WriteLine("Enter the state that you want to search");
             string stateKey = Console.ReadLine();
+            statePerson[stateKey] = new List<Person>();
             foreach (string addressBookName in AddressBookDictionary.Keys)
             {
                 foreach (Person contact in AddressBookDictionary[addressBookName])
                 {
-                    if (cityKey.ToLower() == contact.City || stateKey.ToLower() == contact.State)
+                    if (cityKey.ToLower() == contact.City.ToLower())
                     {
-                        Console.WriteLine("In address book {0}, {1} is staying in {2} city and {3} state",
-                            addressBookName, contact.FirstName, contact.City, contact.State);
+                        cityPersons[cityKey].Add(contact);
+                    }
+                    if (stateKey.ToLower() == contact.State.ToLower())
+                    {
+                        statePerson[stateKey].Add(contact);
                     }
                 }
             }
+            PersonSearchDisplay(cityPersons, statePerson, cityKey, stateKey);
         }
-            public static void PersonSearchDisplay(Dictionary<string, List<Person>> cityPersons, Dictionary<string, List<Person>> statePersons, string cityKey, string stateKey)
+
+        public static void PersonSearchDisplay(Dictionary<string, List<Person>> cityPersons, Dictionary<string, List<Person>> statePersons, string cityKey, string stateKey)
+        {
+            Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
+            foreach (Person contact in cityPersons[cityKey])
             {
-                Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
-                foreach (Person contact in cityPersons[cityKey])
-                {
-                    Console.WriteLine("{0}", contact.FirstName);
-                }
-                Console.WriteLine("--------------------Persons in {0} state", stateKey);
-                foreach (Person contact in statePersons[stateKey])
-                {
-                    Console.WriteLine("{0}", contact.FirstName);
-                }
+                Console.WriteLine("{0}", contact.FirstName);
             }
+            Console.WriteLine("--------------------Persons in {0} state", stateKey);
+            foreach (Person contact in statePersons[stateKey])
+            {
+                Console.WriteLine("{0}", contact.FirstName);
+            }
+        }
+
 
     }
- }
+}
 
 
 
