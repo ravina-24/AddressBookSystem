@@ -10,24 +10,7 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-        public void AddAddressBook()
-        {
-            int count = 2;
-            while (count > 0)
-            {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    AddressBookNewNameValidator();
-                }
-                else if (key == 2)
-                {
-                    AddressBookExistingNameValidator();
-                }
-                count--;
-            }
-        }
+       
 
         public static void AddressBookNewNameValidator()
         {
