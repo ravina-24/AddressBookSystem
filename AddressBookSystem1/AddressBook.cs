@@ -86,7 +86,7 @@ namespace AddressBookSystem1
                 Details.Add(details);
 
                 Console.WriteLine("..................");
-                Count++;
+                Count--;
             }
         }
 
@@ -116,14 +116,14 @@ namespace AddressBookSystem1
 
         public void EditDeatils()
         {
-            if (AddressBook.Details.Count > 0)
+            if (Details.Count > 0)
             {
                 Console.Write("Enter Name of the contact you want to edit: ");
                 string editDetails = Console.ReadLine();
 
 
 
-                foreach (var item in AddressBook.Details)
+                foreach (var item in Details)
                 {
                     if (editDetails.ToLower() == item.FirstName.ToLower())
                     {
@@ -227,17 +227,17 @@ namespace AddressBookSystem1
 
         public void DeleteName()
         {
-            if (AddressBook.Details.Count > 0)
+            if (Details.Count > 0)
             {
                 Console.Write("Enter name of contact you want to delete: ");
                 string deleteName = Console.ReadLine();
 
 
-                foreach (var item in AddressBook.Details)
+                foreach (var item in Details)
                 {
                     if (deleteName.ToLower() == item.FirstName.ToLower())
                     {
-                        AddressBook.Details.Remove(item);
+                        Details.Remove(item);
                         Console.WriteLine(deleteName + "'s Contact is successfully deleted.");
                         break;
                     }
