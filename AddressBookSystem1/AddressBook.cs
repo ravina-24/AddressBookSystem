@@ -48,9 +48,18 @@ namespace AddressBookSystem1
             while (personNum > 0)
             {
                 Person details = new Person();
-
+                FirstName:
                 Console.WriteLine("Enter your First name");
-                details.FirstName = Console.ReadLine();
+                string FirstName = Console.ReadLine();
+                if (NameDuplicationCheck(addressBookName, FirstName))
+                {
+                    details.FirstName = FirstName;
+                }
+                else
+                {
+                    Console.WriteLine("The name {0} already  exist in the current address book. please enter a new name", FirstName);
+                    goto FirstName;
+                }
                 Console.WriteLine("Enter your Last name");
                 details.LastName = Console.ReadLine();
                 Console.WriteLine("Enter your address");
