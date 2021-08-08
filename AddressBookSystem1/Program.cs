@@ -7,8 +7,8 @@ namespace AddressBookSystem1
         static void Main(string[] args)
         {
                 Console.WriteLine("Welcome to Address Book System");
-                Person person = new Person();
-                AddressBook.AddMember();
+               
+                
 
 
                 while (true)

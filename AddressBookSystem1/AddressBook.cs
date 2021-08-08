@@ -12,8 +12,6 @@ namespace AddressBookSystem1
         {
             string addressBookName;
 
-            while (true)
-            {
                 Console.WriteLine("Enter The Name of the Address Book");
                 addressBookName = Console.ReadLine();
 
@@ -24,18 +22,9 @@ namespace AddressBookSystem1
                     {
                         Console.WriteLine("This name of address book already exists");
                     }
-                    else
-                    {
-                        break;
-                    }
+                   
                 }
-                else
-                {
-                    break;
-                }
-
-
-
+              
 
 
                 Console.WriteLine("How many contacts do you want to add?");
@@ -112,9 +101,9 @@ namespace AddressBookSystem1
                     Details.Add(details);
 
                     Console.WriteLine("..................");
-                    Count++;
+                    Count--;
                 }
-            }
+          
         }
 
         public static void ViewTheDetails()
