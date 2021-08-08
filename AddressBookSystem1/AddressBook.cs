@@ -10,7 +10,6 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-      
 
         public static void AddressBookNewNameValidator()
         {
@@ -48,9 +47,18 @@ namespace AddressBookSystem1
             while (personNum > 0)
             {
                 Person details = new Person();
-
+            FirstName:
                 Console.WriteLine("Enter your First name");
-                details.FirstName = Console.ReadLine();
+                string FirstName = Console.ReadLine();
+                if (NameDuplicationCheck(addressBookName, FirstName))
+                {
+                    details.FirstName = FirstName;
+                }
+                else
+                {
+                    Console.WriteLine("The name {0} already  exist in the current address book. please enter a new name", FirstName);
+                    goto FirstName;
+                }
                 Console.WriteLine("Enter your Last name");
                 details.LastName = Console.ReadLine();
                 Console.WriteLine("Enter your address");
@@ -73,6 +81,38 @@ namespace AddressBookSystem1
             }
         }
 
+        public static bool NameDuplicationCheck(string addressBookName, string FirstName)
+        {
+            int flag = 0;
+            if (AddressBookDictionary[addressBookName].Count > 0)
+            {
+                foreach (Person contact in AddressBookDictionary[addressBookName])
+                {
+                    if (!(contact.FirstName == FirstName))
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+            if (flag == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         public static void ViewTheDetails()
         {
@@ -80,28 +120,18 @@ namespace AddressBookSystem1
             string addressBookName = Console.ReadLine();
             if (AddressBookDictionary[addressBookName].Count > 0)
             {
-                Console.WriteLine("Enter the name of the person to get all the contact details");
-                string nameKey = Console.ReadLine();
-                int flag = 0;
+
                 foreach (Person contact in AddressBookDictionary[addressBookName])
                 {
-                    if (nameKey.ToLower() == contact.FirstName.ToLower())
-                    {
-                        flag = 1;
-                        Console.WriteLine("First name-->{0}", contact.FirstName);
-                        Console.WriteLine("Last name-->{0}", contact.LastName);
-                        Console.WriteLine("Address-->{0}", contact.Address);
-                        Console.WriteLine("City-->{0}", contact.City);
-                        Console.WriteLine("State-->{0}", contact.State);
-                        Console.WriteLine("Zip code-->{0}", contact.ZipCode);
-                        Console.WriteLine("Phone number-->{0}", contact.PhoneNumber);
-                        Console.WriteLine("E-Mail ID-->{0}", contact.EmailId);
-                        break;
-                    }
-                }
-                if (flag == 0)
-                {
-                    Console.WriteLine("contact of the person {0} does not exist", nameKey);
+                    Console.WriteLine("First name-->{0}", contact.FirstName);
+                    Console.WriteLine("Last name-->{0}", contact.LastName);
+                    Console.WriteLine("Address-->{0}", contact.Address);
+                    Console.WriteLine("City-->{0}", contact.City);
+                    Console.WriteLine("State-->{0}", contact.State);
+                    Console.WriteLine("Zip code-->{0}", contact.ZipCode);
+                    Console.WriteLine("Phone number-->{0}", contact.PhoneNumber);
+                    Console.WriteLine("E-Mail ID-->{0}", contact.EmailId);
+
                 }
             }
             else
@@ -238,11 +268,11 @@ namespace AddressBookSystem1
             {
                 foreach (Person contact in AddressBookDictionary[addressBookName])
                 {
-                    if (cityKey.ToLower() == contact.City)
+                    if (cityKey.ToLower() == contact.City.ToLower())
                     {
                         cityPersons[cityKey].Add(contact);
                     }
-                    else if (stateKey.ToLower() == contact.State)
+                    if (stateKey.ToLower() == contact.State.ToLower())
                     {
                         statePerson[stateKey].Add(contact);
                     }
@@ -250,18 +280,20 @@ namespace AddressBookSystem1
             }
             PersonSearchDisplay(cityPersons, statePerson, cityKey, stateKey);
         }
+
+
         public static void PersonSearchDisplay(Dictionary<string, List<Person>> cityPersons, Dictionary<string, List<Person>> statePersons, string cityKey, string stateKey)
+        {
+            Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
+            foreach (Person contact in cityPersons[cityKey])
             {
-                Console.WriteLine("------------------- Persons in {0} city-------------------------", cityKey);
-                foreach (Person contact in cityPersons[cityKey])
-                {
-                    Console.WriteLine("{0}", contact.FirstName);
-                }
-                Console.WriteLine("--------------------Persons in {0} state", stateKey);
-                foreach (Person contact in statePersons[stateKey])
-                {
-                    Console.WriteLine("{0}", contact.FirstName);
-                }
+                Console.WriteLine("{0}", contact.FirstName);
+            }
+            Console.WriteLine("--------------------Persons in {0} state", stateKey);
+            foreach (Person contact in statePersons[stateKey])
+            {
+                Console.WriteLine("{0}", contact.FirstName);
+            }
             Console.WriteLine("Total count of persons in the city {0} is {1}", cityKey, cityPersons[cityKey].Count);
             Console.WriteLine("--------------------Persons in {0} state", stateKey);
             foreach (Person contact in statePersons[stateKey])
@@ -272,7 +304,6 @@ namespace AddressBookSystem1
 
             Console.WriteLine("Total count of persons in the state {0} is {1}", stateKey, statePersons[stateKey].Count);
         }
-
         public static void SortEntriesAlphabetically()
         {
             Console.Write("Enter the name of address book you want to sort: ");
@@ -289,7 +320,7 @@ namespace AddressBookSystem1
                 Console.WriteLine("This address book doesn't exists in our record.");
             }
         }
-            public static void SortByCityStateZip()
+        public static void SortByCityStateZip()
             {
             Console.Write("Enter the name of address book you want to sort: ");
             string addressBookName = Console.ReadLine();
