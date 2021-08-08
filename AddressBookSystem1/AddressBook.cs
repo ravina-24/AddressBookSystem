@@ -10,25 +10,6 @@ namespace AddressBookSystem1
         public static Dictionary<string, List<Person>> AddressBookDictionary = new Dictionary<string, List<Person>>();
         public static List<Person> addressBook;
 
-        public void AddAddressBook()
-        {
-            int count = 2;
-            while (count > 0)
-            {
-                Console.WriteLine("Do you want to add the contact in the existing addressbook or new addressbook\n Enter the number accordingly\n 1. New addressbook\n 2. Existing addressbook");
-                int key = Convert.ToInt32(Console.ReadLine());
-                if (key == 1)
-                {
-                    AddressBookNewNameValidator();
-                }
-                else if (key == 2)
-                {
-                    AddressBookExistingNameValidator();
-                }
-                count--;
-            }
-        }
-
         public static void AddressBookNewNameValidator()
         {
             Console.WriteLine("Enter the new addressbook name\n");
@@ -65,9 +46,18 @@ namespace AddressBookSystem1
             while (personNum > 0)
             {
                 Person details = new Person();
-
+            FirstName:
                 Console.WriteLine("Enter your First name");
-                details.FirstName = Console.ReadLine();
+                string FirstName = Console.ReadLine();
+                if (NameDuplicationCheck(addressBookName, FirstName))
+                {
+                    details.FirstName = FirstName;
+                }
+                else
+                {
+                    Console.WriteLine("The name {0} already  exist in the current address book. please enter a new name", FirstName);
+                    goto FirstName;
+                }
                 Console.WriteLine("Enter your Last name");
                 details.LastName = Console.ReadLine();
                 Console.WriteLine("Enter your address");
@@ -87,6 +77,38 @@ namespace AddressBookSystem1
                 Console.WriteLine("{0}'s contact succesfully added", details.FirstName);
 
                 personNum--;
+            }
+        }
+
+        public static bool NameDuplicationCheck(string addressBookName, string FirstName)
+        {
+            int flag = 0;
+            if (AddressBookDictionary[addressBookName].Count > 0)
+            {
+                foreach (Person contact in AddressBookDictionary[addressBookName])
+                {
+                    if (!(contact.FirstName == FirstName))
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+            if (flag == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
