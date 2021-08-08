@@ -73,7 +73,37 @@ namespace AddressBookSystem1
             }
         }
 
-
+        public static bool NameDuplicationCheck(string addressBookName, string FirstName)
+        {
+            int flag = 0;
+            if (AddressBookDictionary[addressBookName].Count > 0)
+            {
+                foreach (Person contact in AddressBookDictionary[addressBookName])
+                {
+                    if (!(contact.FirstName == FirstName))
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return true;
+            }
+            if (flag == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static void ViewTheDetails()
         {
             Console.WriteLine("Enter the name of the addressbook that you wants to use for displaying contacts");
