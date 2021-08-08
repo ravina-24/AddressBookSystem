@@ -86,7 +86,7 @@ namespace AddressBookSystem1
                 Details.Add(details);
 
                 Console.WriteLine("..................");
-                Count++;
+                Count--;
             }
         }
 
